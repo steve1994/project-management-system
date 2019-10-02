@@ -50,6 +50,7 @@ function valueConditional(searchFilter,searchFilterValue) {
 module.exports = (pool) => {
 
     router.get('/', helper.isLoggedIn, function(req, res) {
+        let isAdmin = req.session.user.isadmin;
         const searchFilter = [req.query.user_id_checkbox,req.query.full_name_checkbox,req.query.position_checkbox,req.query.status_checkbox];
         const searchFilterValue = [req.query.user_id,req.query.full_name,req.query.position,req.query.status];
 
@@ -83,13 +84,14 @@ module.exports = (pool) => {
                 if (err) throw err;
 
                 let usersData = response.rows;
-                res.render('users/index',{usersData,totalPage,page,url});
+                res.render('users/index',{usersData,totalPage,page,url,isAdmin});
             })
         })
     });
 
     router.get('/add', helper.isLoggedIn, function (req,res) {
-        res.render('users/add');
+        let isAdmin = req.session.user.isadmin;
+        res.render('users/add',{isAdmin});
     })
 
     router.post('/add', helper.isLoggedIn, function (req,res) {
@@ -113,6 +115,7 @@ module.exports = (pool) => {
     })
 
     router.get('/edit/:iduser',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idUser = req.params.iduser;
         let sql = `SELECT * FROM users WHERE userid = ${idUser}`;
         pool.query(sql, function (err,response) {
@@ -121,7 +124,7 @@ module.exports = (pool) => {
             if (req.session.user.userid == idUser) {
                 res.redirect('/users');
             } else {
-                res.render('users/edit',{idUser,userData});
+                res.render('users/edit',{idUser,userData,isAdmin});
             }
         })
     })

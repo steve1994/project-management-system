@@ -47,7 +47,9 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/projects">Projects</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/users">Users</a><li>
+            <% if (isAdmin) { %>
+              <li><a href="/users">Users</a><li>
+            <% } %>
             <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
           </ul>
         </div>
@@ -166,7 +168,9 @@
           <% } %>
           <td style="text-align:left;">
             <a href="/projects/edit/<%= arrayProjects[i].id %>"><button class="btn btn-success">Edit</button></a>
-            <a href="/projects/delete/<%= arrayProjects[i].id %>"><button class="btn btn-danger">Delete</button></a>
+            <% if (isAdmin) { %>
+              <a href="/projects/delete/<%= arrayProjects[i].id %>"><button class="btn btn-danger">Delete</button></a>
+            <% } %>
           </td>
         </tr>
         <% } %>
@@ -181,9 +185,11 @@
               </ul>
           </td>
         </tr>
-        <tr>
-          <td><a href="projects/add"><button class="btn btn-primary">Add</button></a></td>
-        </tr>
+        <% if (isAdmin) { %>
+          <tr>
+            <td><a href="projects/add"><button class="btn btn-primary">Add</button></a></td>
+          </tr>
+        <% } %>
       </tbody>
     </table>
   </div>

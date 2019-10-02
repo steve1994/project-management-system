@@ -50,6 +50,7 @@ function buildUpdateQueryValues(columnsConditional) {
 
 module.exports = (pool) => {
     router.get('/', helper.isLoggedIn, function(req, res) {
+        let isAdmin = req.session.user.isadmin;
         let userId = req.session.user.userid;
         let sql = `SELECT email,firstname,lastname,role,isfulltime FROM users WHERE userid=$1`;
         pool.query(sql,[userId],function (err,response) {
@@ -59,7 +60,7 @@ module.exports = (pool) => {
             let role = (response.rows[0].role == null) ? '' : response.rows[0].role;
             let isFullTime = response.rows[0].isfulltime;
 
-            res.render('profile/index',{userId,email,firstname,lastname,role,isFullTime});
+            res.render('profile/index',{userId,email,firstname,lastname,role,isFullTime,isAdmin});
         })
     });
 

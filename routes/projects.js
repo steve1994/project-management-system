@@ -97,6 +97,7 @@ function convertDateToString(date) {
 module.exports = (pool) => {
 
     router.get('/', helper.isLoggedIn, function(req, res) {
+        let isAdmin = req.session.user.isadmin;
         let searchFilter = [req.query.id_checkbox,req.query.name_checkbox,req.query.member_checkbox];
         let searchFilterValue = [req.query.id,req.query.name,req.query.member];
 
@@ -157,10 +158,10 @@ module.exports = (pool) => {
                                         arrayProjects[arrayIndexIDProjects[projectID]].members.push(fullName);
                                     }
                                 }
-                                res.render('projects/index',{arrayProjects,options,users,totalPage,page,url});
+                                res.render('projects/index',{arrayProjects,options,users,totalPage,page,url,isAdmin});
                             })
                         } else {
-                            res.render('projects/index',{arrayProjects,options,users,totalPage,page,url})
+                            res.render('projects/index',{arrayProjects,options,users,totalPage,page,url,isAdmin});
                         }
                     })
                 })
@@ -177,10 +178,11 @@ module.exports = (pool) => {
     })
 
     router.get('/add', helper.isLoggedIn, function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let sql = "SELECT * FROM users";
         pool.query(sql, function (err,response) {
             let users = response.rows;
-            res.render('projects/add',{users});
+            res.render('projects/add',{users,isAdmin});
         })
     });
 
@@ -227,6 +229,7 @@ module.exports = (pool) => {
     })
 
     router.get('/edit/:id',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.id;
         let sql = `SELECT * FROM projects WHERE projectid=$1`;
         pool.query(sql,[idProject],function (err,response) {
@@ -241,7 +244,7 @@ module.exports = (pool) => {
                 sql = `SELECT * FROM users`;
                 pool.query(sql,function (req,response) {
                     let users = response.rows;
-                    res.render('projects/edit',{users,arrayMembersId,nameProject,idProject});
+                    res.render('projects/edit',{users,arrayMembersId,nameProject,idProject,isAdmin});
                 })
             })
         })
@@ -297,6 +300,7 @@ module.exports = (pool) => {
     })
 
     router.get('/overview/:projectid',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let sql = `SELECT count(*) as total FROM issues WHERE tracker='bug' AND projectid=${idProject}`;
         pool.query(sql, function (err,response) {
@@ -326,7 +330,7 @@ module.exports = (pool) => {
                                 pool.query(sql, function (err,response) {
                                     if (err) throw err;
                                     let listUsers = response.rows;
-                                    res.render('projects/overview/index',{idProject,bugTotal,bugTotalOpen,featureTotal,featureTotalOpen,supportTotal,supportTotalOpen,listUsers});
+                                    res.render('projects/overview/index',{idProject,bugTotal,bugTotalOpen,featureTotal,featureTotalOpen,supportTotal,supportTotalOpen,listUsers,isAdmin});
                                 })
                             })
                         })
@@ -338,12 +342,14 @@ module.exports = (pool) => {
 
     router.get('/activity/:projectid',helper.isLoggedIn,function (req,res) {
         const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        let isAdmin = req.session.user.isadmin;
 
         let idProject = req.params.projectid;
         let currentDate = new Date(Date.now());
         let lastWeekDate = new Date(Date.now());
         lastWeekDate.setDate(lastWeekDate.getDate()-6);
 
+        // Build Empty Array Activity Object
         let startDate = new Date(Date.now());
         let endDate = new Date(Date.now());
         endDate.setDate(endDate.getDate()-6);
@@ -408,15 +414,16 @@ module.exports = (pool) => {
                     for (let key in arrayActivityObject) {
                         arrayActivityObject[key].reverse();
                     }
-                    res.render('projects/activity/index',{idProject,arrayActivityObject,currentDate,lastWeekDate});
+                    res.render('projects/activity/index',{idProject,arrayActivityObject,currentDate,lastWeekDate,isAdmin});
                 })
             } else {
-                res.render('projects/activity/index',{idProject,arrayActivityObject,currentDate,lastWeekDate});
+                res.render('projects/activity/index',{idProject,arrayActivityObject,currentDate,lastWeekDate,isAdmin});
             }
         })
     })
 
     router.get('/issue/:projectid',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let searchFilter = [req.query.id_checkbox,req.query.subject_checkbox,req.query.tracker_checkbox];
         let searchFilterValue = [req.query.id,req.query.subject,req.query.tracker];
@@ -450,7 +457,7 @@ module.exports = (pool) => {
                     if (err) throw err;
                     let options = response.rows[0].issueoptions == null ? '{}' : response.rows[0].issueoptions;
                     options = JSON.parse(options);
-                    res.render('projects/issue/index',{idProject,arrayIssues,options,totalPage,page,url});
+                    res.render('projects/issue/index',{idProject,arrayIssues,options,totalPage,page,url,isAdmin});
                 })
             })
         })
@@ -465,12 +472,13 @@ module.exports = (pool) => {
     })
 
     router.get('/issue/:projectid/add',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let sql = `SELECT users.userid,users.fullname FROM (members INNER JOIN users ON members.userid=users.userid) WHERE members.projectid = $1`;
         pool.query(sql,[idProject],function (err,response) {
             if (err) throw err;
             let usersData = response.rows;
-            res.render('projects/issue/add',{idProject,usersData});
+            res.render('projects/issue/add',{idProject,usersData,isAdmin});
         })
     })
 
@@ -514,6 +522,7 @@ module.exports = (pool) => {
     })
 
     router.get('/issue/:idproject/edit/:idissue',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.idproject;
         let idIssue = req.params.idissue;
         let sql = `SELECT * FROM issues WHERE projectid=${idProject} AND issueid=${idIssue}`;
@@ -530,7 +539,7 @@ module.exports = (pool) => {
                 pool.query(sql,function (err,response) {
                     if (err) throw err;
                     let issuesData = response.rows;
-                    res.render('projects/issue/edit',{idProject,idIssue,usersData,issueObject,issuesData});
+                    res.render('projects/issue/edit',{idProject,idIssue,usersData,issueObject,issuesData,isAdmin});
                 })
             })
         })
@@ -624,6 +633,7 @@ module.exports = (pool) => {
     })
 
     router.get('/member/:projectid',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let searchFilter = [req.query.id_checkbox,req.query.name_checkbox,req.query.position_checkbox];
         let searchFilterValue = [req.query.id,req.query.name,req.query.position];
@@ -664,7 +674,7 @@ module.exports = (pool) => {
                     if (err) throw err;
                     let options = response.rows[0].projectoptions == null ? '{}' : response.rows[0].projectoptions;
                     options = JSON.parse(options);
-                    res.render('projects/member/index',{idProject,arrayMembers,options,totalPage,page,url});
+                    res.render('projects/member/index',{idProject,arrayMembers,options,totalPage,page,url,isAdmin});
                 })
             })
         })
@@ -679,6 +689,7 @@ module.exports = (pool) => {
     })
 
     router.get('/member/:projectid/edit/:userid',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let idUser = req.params.userid;
         let sql = `SELECT fullname FROM users WHERE userid=$1`;
@@ -689,7 +700,7 @@ module.exports = (pool) => {
             pool.query(sql,[idProject,idUser],function (err,response) {
                 if (err) throw err;
                 let role = response.rows[0].role;
-                res.render('projects/member/edit',{idProject,idUser,fullname,role});
+                res.render('projects/member/edit',{idProject,idUser,fullname,role,isAdmin});
             })
         })
     })
@@ -705,12 +716,13 @@ module.exports = (pool) => {
     })
 
     router.get('/member/:projectid/add',helper.isLoggedIn,function (req,res) {
+        let isAdmin = req.session.user.isadmin;
         let idProject = req.params.projectid;
         let sql = `SELECT userid,fullname FROM users;`
         pool.query(sql, function (err,response) {
             if (err) throw err;
             let usersData = response.rows;
-            res.render('projects/member/add',{idProject,usersData});
+            res.render('projects/member/add',{idProject,usersData,isAdmin});
         })
     })
 

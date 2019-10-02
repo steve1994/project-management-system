@@ -50,9 +50,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/profile">Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users">Users</a>
-            </li>
+            <% if (isAdmin) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+              </li>
+            <% } %>
             <li class="nav-item">
               <a href="/signout"><button class="btn btn-primary">Sign Out</button></a>
             </li>
@@ -160,7 +162,9 @@
               <% } %>
               <td style="text-align:left;">
                 <a href="/projects/member/<%= idProject %>/edit/<%= arrayMembers[i].id %>"><button class="btn btn-success">Edit</button></a>
-                <a href="/projects/member/<%= idProject %>/delete/<%= arrayMembers[i].id %>"><button class="btn btn-danger">Delete</button></a>
+                <% if (isAdmin) { %>
+                  <a href="/projects/member/<%= idProject %>/delete/<%= arrayMembers[i].id %>"><button class="btn btn-danger">Delete</button></a>
+                <% } %>
               </td>
             </tr>
             <% } %>
@@ -177,7 +181,9 @@
             </tr>
           </tbody>
         </table>
-        <a href="/projects/member/<%= idProject %>/add"><button class="btn btn-primary">Add</button></a>
+        <% if (isAdmin) { %>
+          <a href="/projects/member/<%= idProject %>/add"><button class="btn btn-primary">Add</button></a>
+        <% } %>
       </div>
     </div>
     <!-- /#page-content-wrapper -->

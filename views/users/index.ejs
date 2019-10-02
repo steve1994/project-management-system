@@ -47,7 +47,9 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/projects">Projects</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/users">Users</a><li>
+              <% if (isAdmin) { %>
+                <li><a href="/users">Users</a><li>
+              <% } %>
             <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
           </ul>
         </div>
