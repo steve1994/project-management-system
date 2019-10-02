@@ -47,119 +47,129 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/projects">Projects</a></li>
             <li><a href="/profile">Profile</a></li>
-              <% if (isAdmin) { %>
-                <li><a href="/users">Users</a><li>
-              <% } %>
-            <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
-          </ul>
-        </div>
+            <% if (isAdmin) { %>
+              <li><a href="/users">Users</a><li>
+                <% } %>
+                <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Javascript -->
+        <script src="/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery.backstretch.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/retina-1.1.0.min.js"></script>
+        <script src="/assets/js/scripts.js"></script>
       </div>
-    </nav>
 
-    <!-- Javascript -->
-    <script src="/assets/js/jquery-1.11.1.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery.backstretch.min.js"></script>
-    <script src="/assets/js/wow.min.js"></script>
-    <script src="/assets/js/retina-1.1.0.min.js"></script>
-    <script src="/assets/js/scripts.js"></script>
-  </div>
-
-  <div class="container">
-    <!-- CONTENT STARTS HERE -->
-    <h1 style="text-align:left;">Users</h1>
-    <h3 style="text-align:left;">Filters</h3>
-    <form method="get" action="/users">
-      <input type="hidden" value="1" name="page">
-      <table>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="user_id"><input type="checkbox" name="user_id_checkbox">User ID</label>
-          </td>
-          <td width="800">
-            <input type="text" id="user_id" name="user_id" placeholder="User ID">
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <label for="full_name"><input type="checkbox" name="full_name_checkbox">Full Name</label>
-          </td>
-          <td width="800">
-            <input type="text" id="full_name" name="full_name" placeholder="Full Name">
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <label for="position"><input type="checkbox" name="position_checkbox">Position</label>
-          </td>
-          <td width="800">
-            <select name="position" id="position">
-              <option value="qa">Software Quality Assurance</option>
-              <option value="developer">Software Developer</option>
-              <option value="manager">Manager</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <label for="status"><input type="checkbox" name="status_checkbox">Status</label>
-          </td>
-          <td width="800">
-            <select name="status" id="status">
-              <option value="fulltime">Full Time</option>
-              <option value="parttime">Part TIme</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th style="width:10%;">User ID</th>
-          <th style="width:20%;">Name</th>
-          <th style="width:20%;">Position</th>
-          <th style="width:20%;">Working Status</th>
-          <th style="width:30%;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (let i=0;i<usersData.length;i++) { %>
-          <tr>
-            <td style="text-align:left;"><%= usersData[i].userid %></td>
-            <td style="text-align:left;"><%= usersData[i].fullname %></td>
-            <td style="text-align:left;"><%= usersData[i].role %></td>
-            <td style="text-align:left;"><%= (usersData[i].isfulltime) ? 'Full Time' : 'Part Time' %></td>
-            <td style="text-align:left;">
-              <a href="/users/edit/<%= usersData[i].userid %>"><button class="btn btn-success">Edit</button></a>
-              <a href="/users/delete/<%= usersData[i].userid %>"><button class="btn btn-danger">Delete</button></a>
-            </td>
-          </tr>
-        <% } %>
-        <tr>
-          <td>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
-              <% for (let i=1;i<=totalPage;i++) { %>
-                <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
+      <div class="container">
+        <!-- CONTENT STARTS HERE -->
+        <h1 style="text-align:left;">Users</h1>
+        <h3 style="text-align:left;">Filters</h3>
+        <form method="get" action="/users">
+          <input type="hidden" value="1" name="page">
+          <table>
+            <tr>
+              <td width="200" style="align:left;">
+                <label for="user_id"><input type="checkbox" name="user_id_checkbox">User ID</label>
+              </td>
+              <td width="800">
+                <input type="text" id="user_id" name="user_id" placeholder="User ID">
+              </td>
+            </tr>
+            <tr>
+              <td width="200">
+                <label for="full_name"><input type="checkbox" name="full_name_checkbox">Full Name</label>
+              </td>
+              <td width="800">
+                <input type="text" id="full_name" name="full_name" placeholder="Full Name">
+              </td>
+            </tr>
+            <tr>
+              <td width="200">
+                <label for="position"><input type="checkbox" name="position_checkbox">Position</label>
+              </td>
+              <td width="800">
+                <select name="position" id="position">
+                  <option value="qa">Software Quality Assurance</option>
+                  <option value="developer">Software Developer</option>
+                  <option value="manager">Manager</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td width="200">
+                <label for="status"><input type="checkbox" name="status_checkbox">Status</label>
+              </td>
+              <td width="800">
+                <select name="status" id="status">
+                  <option value="fulltime">Full Time</option>
+                  <option value="parttime">Part TIme</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td width="200">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th style="width:10%;">User ID</th>
+              <th style="width:20%;">Name</th>
+              <th style="width:20%;">Position</th>
+              <th style="width:20%;">Working Status</th>
+              <th style="width:30%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i=0;i<usersData.length;i++) { %>
+              <tr>
+                <td style="text-align:left;"><%= usersData[i].userid %></td>
+                <td style="text-align:left;"><%= usersData[i].fullname %></td>
+                <td style="text-align:left;"><%= usersData[i].role %></td>
+                <td style="text-align:left;"><%= (usersData[i].isfulltime) ? 'Full Time' : 'Part Time' %></td>
+                <td style="text-align:left;">
+                  <a href="/users/edit/<%= usersData[i].userid %>"><button class="btn btn-success">Edit</button></a>
+                  <a href="/users/delete/<%= usersData[i].userid %>"><button class="btn btn-danger">Delete</button></a>
+                </td>
+              </tr>
               <% } %>
-              <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td><a href="users/add"><button class="btn btn-primary">Add</button></a></td>
-        </tr>
-      </tbody>
-    </table>
+              <tr>
+                <td>
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
+                      <% for (let i=1;i<=totalPage;i++) { %>
+                        <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
+                        <% } %>
+                        <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
+                      </ul>
+                    </nav>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="users/add"><button class="btn btn-primary">Add</button></a></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav> -->
+          </div>
 
-  </div>
+        </body>
 
-</body>
-
-</html>
+        </html>

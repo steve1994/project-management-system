@@ -256,6 +256,7 @@ module.exports = (pool) => {
         let sql = "UPDATE projects SET name=$1 WHERE projectid=$2";
         pool.query(sql,[nameProject,idProject],function (err,response) {
             if (err) throw err;
+
             sql = `DELETE FROM members WHERE projectid=$1`;
             pool.query(sql,[idProject],function (err,response) {
                 if (err) throw err;
