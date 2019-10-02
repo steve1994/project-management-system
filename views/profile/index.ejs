@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400|Roboto:300,400,500">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Favicon and touch icons -->
+  <link rel="shortcut icon" href="assets/ico/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+
+<body>
+
+  <!-- Top content -->
+  <div class="top-content">
+
+    <!-- Top menu -->
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header" style="color:white;">
+          Project Management System
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery-1.11.1.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.backstretch.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/retina-1.1.0.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+  </div>
+
+  <div class="container">
+    <h1 style="text-align:left;">Profile</h1>
+    <form method="post" action="/profile">
+      <input type="hidden" value="<%= userid %>" name="userid">
+      <table>
+        <tr>
+          <td width="200" style="align:left;">
+            <label for="email">Email</label>
+          </td>
+          <td width="800">
+            <input type="text" id="email" name="email" value="<%= email %>" placeholder="Email" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td width="200" style="align:left;">
+            <label for="firstname">First Name</label>
+          </td>
+          <td width="800">
+            <input type="text" id="firstname" name="firstname" value="<%= firstname %>" placeholder="First Name">
+          </td>
+        </tr>
+        <tr>
+          <td width="200" style="align:left;">
+            <label for="lastname">Last Name</label>
+          </td>
+          <td width="800">
+            <input type="text" id="lastname" name="lastname" value="<%= lastname %>" placeholder="Last Name">
+          </td>
+        </tr>
+        <tr>
+          <td width="200" style="align:left;">
+            <label for="password">Password</label>
+          </td>
+          <td width="800">
+            <input type="password" id="password" name="password" value="" placeholder="Password">
+          </td>
+        </tr>
+        <tr>
+          <td width="200">
+            <label for="position">Position</label>
+          </td>
+          <td width="800">
+            <input type="radio" name="position" value="manager" <%= (role == 'manager') ? ' checked' : ''; %>>Manager<br>
+            <input type="radio" name="position" value="developer" <%= (role == 'developer') ? ' checked' : ''; %>>Software Developer<br>
+            <input type="radio" name="position" value="qa" <%= (role == 'qa') ? ' checked' : ''; %>>Quality Assurance<br>
+          </td>
+        </tr>
+        <tr>
+          <td width="200">
+            <label for="type">Type</label>
+          </td>
+          <td width="800">
+            <input type="checkbox" id="type" name="type" <%= (isFullTime) ? ' checked' : '' ; %>>Fulltime
+          </td>
+        </tr>
+        <tr>
+          <td width="200">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+
+</html>
