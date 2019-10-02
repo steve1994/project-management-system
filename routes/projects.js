@@ -267,12 +267,30 @@ module.exports = (pool) => {
                 if (arrayKeys.length == 0) {
                     res.redirect('/projects');
                 } else {
-                    sql = "INSERT INTO members(projectid,userid) VALUES ($1,$2)";
+                    // Build Value Params for INSERT QUERY
+                    let arrayValues = [];
+                    let params = [];
                     for (let i=0;i<arrayKeys.length;i++) {
-                        pool.query(sql,[idProject,arrayKeys[i]],function(err,response) {
-                            res.redirect('/projects');
-                        });
+                        arrayValues.push([idProject,arrayKeys[i]]);
+                        params.push(idProject);
+                        params.push(arrayKeys[i]);
                     }
+                    // Build Conditional String For INSERT QUERY
+                    let stringCondition = "";
+                    let counter = 1;
+                    for (let i=0;i<arrayValues.length;i++) {
+                        stringCondition += `($${counter},$${counter+1})`;
+                        if (i < arrayValues.length-1) {
+                            stringCondition += ",";
+                        }
+                        counter += 2;
+                    }
+
+                    sql = `INSERT INTO members(projectid,userid) VALUES ${stringCondition}`;
+                    pool.query(sql,params,function (err,response) {
+                        if (err) throw err;
+                        res.redirect('/projects');
+                    })
                 }
             })
         })
@@ -620,7 +638,7 @@ module.exports = (pool) => {
         pool.query(sql, stringConditionValue, function (err,response) {
             if (err) throw err;
 
-            let url = req.url == '/' ? '/projects/member/' + idProject + '/?page=1' : '/projects' + req.url;
+            let url = req.url == ('/member/' + idProject) ? '/projects/member/' + idProject + '/?page=1' : '/projects' + req.url;
             let total = response.rows[0].total;
             let page = req.query.page || 1;
             let limit = 3;

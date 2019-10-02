@@ -30,8 +30,6 @@ function buildUpdateQuery(columnsConditional) {
             counter++;
         }
     }
-    // setColumns[5] = 'fullname = $' + counter;
-    // counter++;
     return [counter,convertToString(setColumns)];
 }
 
@@ -46,38 +44,22 @@ function buildUpdateQueryValues(columnsConditional) {
                 valueConditional.push(columnsConditional[i]);
             }
         }
-        // else {
-        //     if (i > 0) {
-        //         valueConditional.push("");
-        //     }
-        // }
     }
-    // SETTING FOR COLUMN FULLNAME
-    // if (columnsConditional[1] != "" && columnsConditional[2] != "") {
-    //     valueConditional.push(columnsConditional[1] + ' ' + columnsConditional[2]);
-    // } else {
-    //     if (columnsConditional[1] != "") {
-    //         valueConditional.push(columnsConditional[1]);
-    //     }
-    //     if (columnsConditional[2] != "") {
-    //         valueConditional.push(columnsConditional[2]);
-    //     }
-    // }
     return valueConditional;
 }
 
 module.exports = (pool) => {
     router.get('/', helper.isLoggedIn, function(req, res) {
-        let email = req.session.user.email;
-        let sql = `SELECT userid,firstname,lastname,role,isfulltime FROM users WHERE email=$1`;
-        pool.query(sql,[email],function (err,response) {
-            let userid = response.rows[0].userid;
+        let userId = req.session.user.userid;
+        let sql = `SELECT email,firstname,lastname,role,isfulltime FROM users WHERE userid=$1`;
+        pool.query(sql,[userId],function (err,response) {
+            let email = response.rows[0].email;
             let firstname = response.rows[0].firstname;
             let lastname = response.rows[0].lastname;
             let role = (response.rows[0].role == null) ? '' : response.rows[0].role;
             let isFullTime = response.rows[0].isfulltime;
 
-            res.render('profile/index',{userid,email,firstname,lastname,role,isFullTime});
+            res.render('profile/index',{userId,email,firstname,lastname,role,isFullTime});
         })
     });
 
