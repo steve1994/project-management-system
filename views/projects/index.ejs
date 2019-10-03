@@ -76,7 +76,7 @@
             <label for="id"><input type="checkbox" name="id_checkbox">id</label>
           </td>
           <td width="800">
-            <input type="text" id="id" name="id" placeholder="ID">
+            <input type="text" id="id" name="id" placeholder="ID" class="form-control">
           </td>
         </tr>
         <tr>
@@ -84,7 +84,7 @@
             <label for="Name"><input type="checkbox" name="name_checkbox">Name</label>
           </td>
           <td width="800">
-            <input type="text" id="Name" name="name" placeholder="Name">
+            <input type="text" id="Name" name="name" placeholder="Name" class="form-control">
           </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
             <label for="member"><input type="checkbox" name="member_checkbox">Member</label>
           </td>
           <td width="800">
-            <select id="member" name="member">
+            <select id="member" name="member" class="form-control">
               <option value="" disabled selected>Choose a member..</option>
               <% for (let i=0;i<users.length;i++) { %>
                 <option value="<%= users[i].userid %>"><%= users[i].firstname + ' ' + users[i].lastname %></option>

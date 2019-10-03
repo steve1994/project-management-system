@@ -82,7 +82,7 @@
                 <label for="subject">Subject</label>
               </td>
               <td width="800">
-                <input type="text" name="subject" placeholder="Subject" value="<%= issueObject.subject %>" required>
+                <input type="text" name="subject" placeholder="Subject" value="<%= issueObject.subject %>"  class="form-control" required>
               </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
                 <label for="description">Description</label>
               </td>
               <td width="800">
-                <textarea name="description" cols="50" rows="3" placeholder="Description" required><%= issueObject.description %></textarea>
+                <textarea name="description" cols="50" rows="3" placeholder="Description"  class="form-control" required><%= issueObject.description %></textarea>
               </td>
             </tr>
             <tr>
@@ -122,7 +122,7 @@
                 <label for="assignee">Assignee</label>
               </td>
               <td width="800">
-                <select id="assignee" name="assignee">
+                <select id="assignee" name="assignee" class="form-control">
                   <% for (let i=0;i<usersData.length;i++) { %>
                     <option value="<%= usersData[i].userid %>" <%= (usersData[i].userid == issueObject.assignee) ? ' checked' : '' %>><%= usersData[i].fullname %></option>
                   <% } %>
@@ -134,7 +134,7 @@
                 <label for="start_date">Start Date</label>
               </td>
               <td width="800">
-                <input type="date" name="start_date" value="<%= issueObject.startdate %>">
+                <input type="date" name="start_date" value="<%= issueObject.startdate %>" class="form-control">
               </td>
             </tr>
             <tr>
@@ -142,7 +142,7 @@
                 <label for="due_date">Due Date</label>
               </td>
               <td width="800">
-                <input type="date" name="due_date" value="<%= issueObject.duedate %>">
+                <input type="date" name="due_date" value="<%= issueObject.duedate %>" class="form-control">
               </td>
             </tr>
             <tr>
@@ -150,7 +150,7 @@
                 <label for="estimated_time">Estimated Time</label>
               </td>
               <td width="800">
-                <input type="number" name="estimated_time" value="<%= issueObject.estimatedtime %>" placeholder="Estimated Time" step="0.01">
+                <input type="number" name="estimated_time" value="<%= issueObject.estimatedtime %>" placeholder="Estimated Time" step="0.01" class="form-control">
               </td>
             </tr>
             <tr>
@@ -158,7 +158,7 @@
                 <label for="done">% Done</label>
               </td>
               <td width="800">
-                <select id="done" name="done">
+                <select id="done" name="done" class="form-control">
                   <option value="0" <%= (parseInt(issueObject.done) == 0) ? ' selected' : '' %>>0</option>
                   <option value="20" <%= (parseInt(issueObject.done) == 20) ? ' selected' : '' %>>20</option>
                   <option value="40" <%= (parseInt(issueObject.done) == 40) ? ' selected' : '' %>>40</option>
@@ -173,7 +173,7 @@
                 <label for="files">Files</label>
               </td>
               <td width="800">
-                <input type="file" name="files">
+                <input type="file" name="files" class="form-control">
                 <% if (issueObject.files != null) { %>
                   <br><a href="/images/uploaded_image/<%= issueObject.files %>" target="_blank"><%= issueObject.files %></a>
                 <% } %>
@@ -184,7 +184,7 @@
                 <label for="spent_time">Spent Time</label>
               </td>
               <td width="800">
-                <input type="number" name="spent_time" value="<%= issueObject.spenttime %>" placeholder="Spent Time" step="0.01">
+                <input type="number" name="spent_time" value="<%= issueObject.spenttime %>" placeholder="Spent Time" step="0.01" class="form-control">
               </td>
             </tr>
             <tr>
@@ -192,7 +192,7 @@
                 <label for="target_version">Target Version</label>
               </td>
               <td width="800">
-                <input type="text" name="target_version" value="<%= issueObject.targetversion %>" placeholder="Target Version" step="0.01">
+                <input type="text" name="target_version" value="<%= issueObject.targetversion %>" placeholder="Target Version" step="0.01" class="form-control">
               </td>
             </tr>
             <tr>
@@ -200,7 +200,7 @@
                 <label for="author">Author</label>
               </td>
               <td width="800">
-                <select id="author" name="author">
+                <select id="author" name="author" class="form-control">
                   <% for (let i=0;i<usersData.length;i++) { %>
                     <option value="<%= usersData[i].userid %>" <%= (usersData[i].userid == issueObject.author) ? ' checked' : '' %>><%= usersData[i].fullname %></option>
                   <% } %>
@@ -212,7 +212,7 @@
                 <label for="parent_task">Parent Task</label>
               </td>
               <td width="800">
-                <select id="parent_task" name="parent_task">
+                <select id="parent_task" name="parent_task" class="form-control">
                   <option value="" selected>-----Parent Task-----</option>
                   <% for (let i=0;i<issuesData.length;i++) { %>
                     <option value="<%= issuesData[i].issueid %>" <%= (issuesData[i].issueid == issueObject.issueid) ? ' disabled' : '' %>><%= issuesData[i].subject %></option>

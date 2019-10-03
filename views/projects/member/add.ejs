@@ -72,7 +72,7 @@
                 <label for="name">Name</label>
               </td>
               <td width="800">
-                <select id="name" name="name">
+                <select id="name" name="name" class="form-control">
                   <% for (let i=0;i<usersData.length;i++) { %>
                     <option value="<%= usersData[i].userid %>"><%= usersData[i].fullname %></option>
                   <% } %>
@@ -84,7 +84,7 @@
                 <label for="position">Position</label>
               </td>
               <td width="800">
-                <select id="position" name="position">
+                <select id="position" name="position"  class="form-control">
                   <option value="" disabled>Choose the Position..</option>
                   <option value="qa">Quality Assurance Engineer</option>
                   <option value="manager">Manager</option>
@@ -97,7 +97,7 @@
                 <label for="isfulltime">Is Full Time ?</label>
               </td>
               <td width="800">
-                <input type="checkbox" name="isfulltime" id="isfulltime">
+                <input type="checkbox" name="isfulltime" id="isfulltime" class="form-control">
               </td>
             </tr>
             <tr>
