@@ -173,7 +173,10 @@
                 <label for="files">Files</label>
               </td>
               <td width="800">
-                <input type="file" name="files"><br><a href="/images/uploaded_image/<%= issueObject.files %>" target="_blank"><%= issueObject.files %></a>
+                <input type="file" name="files">
+                <% if (issueObject.files != null) { %>
+                  <br><a href="/images/uploaded_image/<%= issueObject.files %>" target="_blank"><%= issueObject.files %></a>
+                <% } %>
               </td>
             </tr>
             <tr>
