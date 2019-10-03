@@ -6,11 +6,18 @@ var logger = require('morgan');
 var session = require('express-session');
 var fileUpload = require('express-fileupload');
 const pg = require('pg');
+// const pool = new pg.Pool({
+//     user: 'postgres',
+//     host: '127.0.0.1',
+//     database: 'PMS',
+//     password: 'admin1234',
+//     port:'5432'
+// })
 const pool = new pg.Pool({
-    user: 'postgres',
-    host: '127.0.0.1',
-    database: 'PMS',
-    password: 'admin1234',
+    user: 'oeqzzrnfqhjenc',
+    host: 'ec2-54-235-167-210.compute-1.amazonaws.com',
+    database: 'd5kautgck30taj',
+    password: 'f6115206ef0ccd3dbad94024c589abadae15dbd0d03a7a908a50fa785e376b1e',
     port:'5432'
 })
 
