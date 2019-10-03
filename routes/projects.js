@@ -375,7 +375,15 @@ module.exports = (pool) => {
 
             let counter = 0;
             for (let i=0;i<activities.length;i++) {
-                let time = activities[i].time.getHours() + ':' + activities[i].time.getMinutes();
+                let hours = activities[i].time.getHours();
+                if (hours.toString().length < 2) {
+                    hours = "0" + hours;
+                }
+                let minutes = activities[i].time.getMinutes();
+                if (minutes.toString().length < 2) {
+                    minutes = "0" + minutes;
+                }
+                let time = hours + ':' + minutes;
                 let title = activities[i].title;
                 let description = activities[i].description;
                 let author = activities[i].author;
