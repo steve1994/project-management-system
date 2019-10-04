@@ -49,98 +49,114 @@
             <li><a href="/profile">Profile</a></li>
             <% if (isAdmin) { %>
               <li><a href="/users">Users</a><li>
-            <% } %>
-            <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
-          </ul>
-        </div>
+                <% } %>
+                <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Javascript -->
+        <script src="/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery.backstretch.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/retina-1.1.0.min.js"></script>
+        <script src="/assets/js/scripts.js"></script>
       </div>
-    </nav>
 
-    <!-- Javascript -->
-    <script src="/assets/js/jquery-1.11.1.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery.backstretch.min.js"></script>
-    <script src="/assets/js/wow.min.js"></script>
-    <script src="/assets/js/retina-1.1.0.min.js"></script>
-    <script src="/assets/js/scripts.js"></script>
-  </div>
+      <div class="container">
+        <!-- CONTENT STARTS HERE -->
+        <h1 style="text-align:left;">Add Users</h1>
+        <form method="post" action="/users/add">
 
-  <div class="container">
-    <!-- CONTENT STARTS HERE -->
-    <h1 style="text-align:left;">Add Users</h1>
-    <form method="post" action="/users/add">
-      <table>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="first_name">First Name</label>
-          </td>
-          <td width="800">
-            <input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" required>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="last_name">Last Name</label>
-          </td>
-          <td width="800">
-            <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" required>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="email">Email</label>
-          </td>
-          <td width="800">
-            <input type="email" id="email" name="email" placeholder="email@abc.com" class="form-control" required>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="password">Password</label>
-          </td>
-          <td width="800">
-            <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="position">Position</label>
-          </td>
-          <td width="800">
-            <input type="radio" name="position" value="manager">Manager<br>
-            <input type="radio" name="position" value="developer">Software Engineer<br>
-            <input type="radio" name="position" value="qa">Quality Assurance<br>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="status">Working Status</label>
-          </td>
-          <td width="800">
-            <input type="radio" name="status" value="fulltime">Full Time<br>
-            <input type="radio" name="status" value="parttime">Part Time<br>
-          </td>
-        </tr>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="isadmin">User Status</label>
-          </td>
-          <td width="800">
-            <input type="radio" name="isadmin" value="admin">Admin<br>
-            <input type="radio" name="isadmin" value="user">User<br>
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <button type="submit" class="btn btn-primary">Save</button>&nbsp;
-            <a href="/users" class="btn btn-warning">Cancel</a>
-          </td>
-        </tr>
-      </table>
-    </form>
+          <div class="form-group row">
+            <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" required>
+            </div>
+          </div>
 
-  </div>
+          <div class="form-group row">
+            <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" required>
+            </div>
+          </div>
 
-</body>
+          <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" id="email" name="email" placeholder="email@abc.com" class="form-control" required>
+            </div>
+          </div>
 
-</html>
+          <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
+            </div>
+          </div>
+
+          <fieldset class="form-group">
+            <div class="row">
+              <label for="position" class="col-form-label col-sm-2 pt-0">Position</label>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="position" value="manager">
+                  <label class="form-check-label">Manager</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="position" value="developer">
+                  <label class="form-check-label">Software Engineer</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="position" value="qa">
+                  <label class="form-check-label">Quality Assurance</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <div class="row">
+              <label for="status" class="col-form-label col-sm-2 pt-0">Working Status</label>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="status" value="fulltime">
+                  <label class="form-check-label">Full Time</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="status" value="parttime">
+                  <label class="form-check-label">Part Time</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <div class="row">
+              <label for="isadmin" class="col-form-label col-sm-2 pt-0">User Status</label>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="isadmin" value="admin">
+                  <label class="form-check-label">Admin</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="isadmin" value="user">
+                  <label class="form-check-label">User</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary">Save</button>&nbsp;
+          <a href="/users" class="btn btn-warning">Cancel</a>
+
+        </form>
+
+      </div>
+
+    </body>
+
+    </html>
