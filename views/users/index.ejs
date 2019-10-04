@@ -71,52 +71,47 @@
         <h3 style="text-align:left;">Filters</h3>
         <form method="get" action="/users">
           <input type="hidden" value="1" name="page">
-          <table>
-            <tr>
-              <td width="200" style="align:left;">
-                <label for="user_id"><input type="checkbox" name="user_id_checkbox">User ID</label>
-              </td>
-              <td width="800">
-                <input type="text" id="user_id" name="user_id" placeholder="User ID" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="full_name"><input type="checkbox" name="full_name_checkbox">Full Name</label>
-              </td>
-              <td width="800">
-                <input type="text" id="full_name" name="full_name" placeholder="Full Name" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="position"><input type="checkbox" name="position_checkbox">Position</label>
-              </td>
-              <td width="800">
-                <select name="position" id="position" class="form-control">
-                  <option value="qa">Software Quality Assurance</option>
-                  <option value="developer">Software Developer</option>
-                  <option value="manager">Manager</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="status"><input type="checkbox" name="status_checkbox">Status</label>
-              </td>
-              <td width="800">
-                <select name="status" id="status" class="form-control">
-                  <option value="fulltime">Full Time</option>
-                  <option value="parttime">Part TIme</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <button type="submit" class="btn btn-primary">Search</button>
-              </td>
-            </tr>
-          </table>
+
+          <div class="form-group row">
+            <label for="user_id" class="col-sm-2 col-form-label"><input type="checkbox" name="user_id_checkbox">User ID</label>
+            <div class="col-sm-10">
+              <input type="text" id="user_id" name="user_id" placeholder="User ID" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="full_name" class="col-sm-2 col-form-label"><input type="checkbox" name="full_name_checkbox">Full Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="full_name" name="full_name" placeholder="Full Name" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="position" class="col-sm-2 col-form-label"><input type="checkbox" name="position_checkbox">Position</label>
+            <div class="col-sm-10">
+              <select name="position" id="position" class="form-control">
+                <option value="qa">Software Quality Assurance</option>
+                <option value="developer">Software Developer</option>
+                <option value="manager">Manager</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="status" class="col-sm-2 col-form-label"><input type="checkbox" name="status_checkbox">Status</label>
+            <div class="col-sm-10">
+              <select name="status" id="status" class="form-control">
+                <option value="fulltime">Full Time</option>
+                <option value="parttime">Part TIme</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-2">
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </div>
         </form>
         <table class="table table-striped">
           <thead>
@@ -141,18 +136,18 @@
                 </td>
               </tr>
               <% } %>
-                <tr>
-                  <td align="left"><a href="users/add"><button class="btn btn-primary">Add</button></a></td>
-                </tr>
-              </tbody>
-            </table>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
-              <% for (let i=1;i<=totalPage;i++) { %>
-                <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
-                <% } %>
-                <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
-              </ul>
+              <tr>
+                <td align="left"><a href="users/add"><button class="btn btn-primary">Add</button></a></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
+            <% for (let i=1;i<=totalPage;i++) { %>
+              <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
+              <% } %>
+              <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
+            </ul>
           </div>
 
         </body>
