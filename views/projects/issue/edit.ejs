@@ -54,200 +54,230 @@
               <li class="nav-item">
                 <a class="nav-link" href="/users">Users</a>
               </li>
-            <% } %>
-            <li class="nav-item">
-              <a href="/signout"><button class="btn btn-primary">Sign Out</button></a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+              <% } %>
+              <li class="nav-item">
+                <a href="/signout"><button class="btn btn-primary">Sign Out</button></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
 
-      <div class="container-fluid">
-        <!-- CONTENTS START HERE -->
-        <h1 style="text-align:left;">Edit Issue</h1>
-        <form method="post" action="/projects/issue/<%= idProject %>/edit/<%= idIssue %>" enctype="multipart/form-data">
-          <table>
-            <tr>
-              <td width="200" style="align:left;">
-                <label for="tracker">Tracker</label>
-              </td>
-              <td width="800">
-                <br><input type="radio" name="tracker" value="bug" <%= (issueObject.tracker == "bug") ? ' checked' : '' %>> Bug<br>
-                <input type="radio" name="tracker" value="feature" <%= (issueObject.tracker == "feature") ? ' checked' : '' %>> Feature<br>
-                <input type="radio" name="tracker" value="support" <%= (issueObject.tracker == "support") ? ' checked' : '' %>> Support<br><br>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="subject">Subject</label>
-              </td>
-              <td width="800">
+        <div class="container-fluid">
+          <!-- CONTENTS START HERE -->
+          <h1 style="text-align:left;">Edit Issue</h1>
+          <form method="post" action="/projects/issue/<%= idProject %>/edit/<%= idIssue %>" enctype="multipart/form-data">
+
+            <fieldset class="form-group">
+              <div class="row">
+                <label for="tracker" class="col-form-label col-sm-2 pt-0">Tracker</label>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tracker" value="bug" <%= (issueObject.tracker == "bug") ? ' checked' : '' %>>
+                    <label class="form-check-label">Bug</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tracker" value="feature" <%= (issueObject.tracker == "feature") ? ' checked' : '' %>>
+                    <label class="form-check-label">Feature</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tracker" value="support" <%= (issueObject.tracker == "support") ? ' checked' : '' %>>
+                    <label class="form-check-label">Support</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="form-group row">
+              <label for="subject" class="col-form-label col-sm-2">Subject</label>
+              <div class="col-sm-10">
                 <input type="text" name="subject" placeholder="Subject" value="<%= issueObject.subject %>"  class="form-control" required>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="description">Description</label>
-              </td>
-              <td width="800">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="description" class="col-form-label col-sm-2">Description</label>
+              <div class="col-sm-10">
                 <textarea name="description" cols="50" rows="3" placeholder="Description"  class="form-control" required><%= issueObject.description %></textarea>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="status">Status</label>
-              </td>
-              <td width="800">
-                <br><input type="radio" name="status" value="new" <%= (issueObject.status == 'new') ? ' checked' : '' %>> New<br>
-                <input type="radio" name="status" value="in_progress" <%= (issueObject.status == 'in_progress') ? ' checked' : '' %>> In Progress<br>
-                <input type="radio" name="status" value="resolved" <%= (issueObject.status == 'resolved') ? ' checked' : '' %>> Resolved<br>
-                <input type="radio" name="status" value="feedback" <%= (issueObject.status == 'feedback') ? ' checked' : '' %>> Feedback<br>
-                <input type="radio" name="status" value="closed" <%= (issueObject.status == 'closed') ? ' checked' : '' %>> Closed<br>
-                <input type="radio" name="status" value="rejected" <%= (issueObject.status == 'rejected') ? ' checked' : '' %>> Rejected<br><br>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="priority">Priority</label>
-              </td>
-              <td width="800">
-                <input type="radio" name="priority" value="normal" <%= (issueObject.priority == 'normal') ? ' checked': '' %>> Normal<br>
-                <input type="radio" name="priority" value="high" <%= (issueObject.priority == 'high') ? ' checked': '' %>> High<br>
-                <input type="radio" name="priority" value="urgent" <%= (issueObject.priority == 'urgent') ? ' checked': '' %>> Urgent<br>
-                <input type="radio" name="priority" value="immediate" <%= (issueObject.priority == 'immediate') ? ' checked': '' %>> Immediate<br><br>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="assignee">Assignee</label>
-              </td>
-              <td width="800">
+              </div>
+            </div>
+
+            <fieldset class="form-group">
+              <div class="row">
+                <label for="status" class="col-form-label col-sm-2 pt-0">Status</label>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="new" <%= (issueObject.status == 'new') ? ' checked' : '' %>>
+                    <label class="form-check-label">New</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="in_progress" <%= (issueObject.status == 'in_progress') ? ' checked' : '' %>>
+                    <label class="form-check-label">In Progress</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="resolved" <%= (issueObject.status == 'resolved') ? ' checked' : '' %>>
+                    <label class="form-check-label">Resolved</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="feedback" <%= (issueObject.status == 'feedback') ? ' checked' : '' %>>
+                    <label class="form-check-label">Feedback</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="closed" <%= (issueObject.status == 'closed') ? ' checked' : '' %>>
+                    <label class="form-check-label">Closed</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="rejected" <%= (issueObject.status == 'rejected') ? ' checked' : '' %>>
+                    <label class="form-check-label">Rejected</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <div class="row">
+                <label for="priority" class="col-form-label col-sm-2 pt-0">Priority</label>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" value="normal" <%= (issueObject.priority == 'normal') ? ' checked': '' %>>
+                    <label class="form-check-label">Normal</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" value="high" <%= (issueObject.priority == 'high') ? ' checked': '' %>>
+                    <label class="form-check-label">High</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" value="urgent" <%= (issueObject.priority == 'urgent') ? ' checked': '' %>>
+                    <label class="form-check-label">Urgent</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="priority" value="immediate" <%= (issueObject.priority == 'immediate') ? ' checked': '' %>>
+                    <label class="form-check-label">Immediate</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="form-group row">
+              <label for="assignee" class="col-sm-2 col-form-label">Assignee</label>
+              <div class="col-sm-10">
                 <select id="assignee" name="assignee" class="form-control">
                   <% for (let i=0;i<usersData.length;i++) { %>
                     <option value="<%= usersData[i].userid %>" <%= (usersData[i].userid == issueObject.assignee) ? ' checked' : '' %>><%= usersData[i].fullname %></option>
-                  <% } %>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="start_date">Start Date</label>
-              </td>
-              <td width="800">
-                <input type="date" name="start_date" value="<%= issueObject.startdate %>" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="due_date">Due Date</label>
-              </td>
-              <td width="800">
-                <input type="date" name="due_date" value="<%= issueObject.duedate %>" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="estimated_time">Estimated Time</label>
-              </td>
-              <td width="800">
-                <input type="number" name="estimated_time" value="<%= issueObject.estimatedtime %>" placeholder="Estimated Time" step="0.01" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="done">% Done</label>
-              </td>
-              <td width="800">
-                <select id="done" name="done" class="form-control">
-                  <option value="0" <%= (parseInt(issueObject.done) == 0) ? ' selected' : '' %>>0</option>
-                  <option value="20" <%= (parseInt(issueObject.done) == 20) ? ' selected' : '' %>>20</option>
-                  <option value="40" <%= (parseInt(issueObject.done) == 40) ? ' selected' : '' %>>40</option>
-                  <option value="60" <%= (parseInt(issueObject.done) == 60) ? ' selected' : '' %>>60</option>
-                  <option value="80" <%= (parseInt(issueObject.done) == 80) ? ' selected' : '' %>>80</option>
-                  <option value="100" <%= (parseInt(issueObject.done) == 100) ? ' selected' : '' %>>100</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="files">Files</label>
-              </td>
-              <td width="800">
-                <input type="file" name="files" class="form-control">
-                <% if (issueObject.files != null) { %>
-                  <br><a href="/images/uploaded_image/<%= issueObject.files %>" target="_blank"><%= issueObject.files %></a>
-                <% } %>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="spent_time">Spent Time</label>
-              </td>
-              <td width="800">
-                <input type="number" name="spent_time" value="<%= issueObject.spenttime %>" placeholder="Spent Time" step="0.01" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="target_version">Target Version</label>
-              </td>
-              <td width="800">
-                <input type="text" name="target_version" value="<%= issueObject.targetversion %>" placeholder="Target Version" step="0.01" class="form-control">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="author">Author</label>
-              </td>
-              <td width="800">
-                <select id="author" name="author" class="form-control">
-                  <% for (let i=0;i<usersData.length;i++) { %>
-                    <option value="<%= usersData[i].userid %>" <%= (usersData[i].userid == issueObject.author) ? ' checked' : '' %>><%= usersData[i].fullname %></option>
-                  <% } %>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="parent_task">Parent Task</label>
-              </td>
-              <td width="800">
-                <select id="parent_task" name="parent_task" class="form-control">
-                  <option value="" selected>-----Parent Task-----</option>
-                  <% for (let i=0;i<issuesData.length;i++) { %>
-                    <option value="<%= issuesData[i].issueid %>" <%= (issuesData[i].issueid == issueObject.issueid) ? ' disabled' : '' %>><%= issuesData[i].subject %></option>
-                  <% } %>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <button type="submit" class="btn btn-primary">Save</button>&nbsp;
-                <a href="/projects/issue/<%= idProject %>" class="btn btn-warning">Cancel</a>
-              </td>
-            </tr>
-          </table>
-        </form>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
 
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+              <div class="form-group row">
+                <label for="start_date" class="col-sm-2 col-form-label">Start Date</label>
+                <div class="col-sm-10">
+                  <input type="date" name="start_date" value="<%= issueObject.startdate %>" class="form-control">
+                </div>
+              </div>
 
-  </div>
-  <!-- /#wrapper -->
+              <div class="form-group row">
+                <label for="due_date" class="col-sm-2 col-form-label">Due Date</label>
+                <div class="col-sm-10">
+                  <input type="date" name="due_date" value="<%= issueObject.duedate %>" class="form-control">
+                </div>
+              </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js2/bootstrap.bundle.min.js"></script>
+              <div class="form-group row">
+                <label for="estimated_time" class="col-sm-2 col-form-label">Estimated Time</label>
+                <div class="col-sm-10">
+                  <input type="number" name="estimated_time" value="<%= issueObject.estimatedtime %>" placeholder="Estimated Time" step="0.01" class="form-control">
+                </div>
+              </div>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+              <div class="form-group row">
+                <label for="done" class="col-sm-2 col-form-label">% Done</label>
+                <div class="col-sm-10">
+                  <select id="done" name="done" class="form-control">
+                    <option value="0" <%= (parseInt(issueObject.done) == 0) ? ' selected' : '' %>>0</option>
+                    <option value="20" <%= (parseInt(issueObject.done) == 20) ? ' selected' : '' %>>20</option>
+                    <option value="40" <%= (parseInt(issueObject.done) == 40) ? ' selected' : '' %>>40</option>
+                    <option value="60" <%= (parseInt(issueObject.done) == 60) ? ' selected' : '' %>>60</option>
+                    <option value="80" <%= (parseInt(issueObject.done) == 80) ? ' selected' : '' %>>80</option>
+                    <option value="100" <%= (parseInt(issueObject.done) == 100) ? ' selected' : '' %>>100</option>
+                  </select>
+                </div>
+              </div>
 
-</body>
+              <div class="form-group row">
+                <label for="files" class="col-sm-2 col-form-label">Files</label>
+                <div class="col-sm-10">
+                  <input type="file" name="files" class="form-control-file">
+                  <% if (issueObject.files != null) { %>
+                    <br><a href="/images/uploaded_image/<%= issueObject.files %>" target="_blank"><%= issueObject.files %></a>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="spent_time" class="col-sm-2 col-form-label">Spent Time</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="spent_time" value="<%= issueObject.spenttime %>" placeholder="Spent Time" step="0.01" class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="target_version" class="col-sm-2 col-form-label">Target Version</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="target_version" value="<%= issueObject.targetversion %>" placeholder="Target Version" step="0.01" class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="author" class="col-sm-2 col-form-label">Author</label>
+                  <div class="col-sm-10">
+                    <select id="author" name="author" class="form-control">
+                      <% for (let i=0;i<usersData.length;i++) { %>
+                        <option value="<%= usersData[i].userid %>" <%= (usersData[i].userid == issueObject.author) ? ' checked' : '' %>><%= usersData[i].fullname %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="parent_task" class="col-sm-2 col-form-label">Parent Task</label>
+                    <div class="col-sm-10">
+                      <select id="parent_task" name="parent_task" class="form-control">
+                        <option value="" selected>-----Parent Task-----</option>
+                        <% for (let i=0;i<issuesData.length;i++) { %>
+                          <option value="<%= issuesData[i].issueid %>" <%= (issuesData[i].issueid == issueObject.issueid) ? ' disabled' : '' %>><%= issuesData[i].subject %></option>
+                          <% } %>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary">Save</button>&nbsp;
+                        <a href="/projects/issue/<%= idProject %>" class="btn btn-warning">Cancel</a>
+                      </div>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+              <!-- /#page-content-wrapper -->
+
+            </div>
+            <!-- /#wrapper -->
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="/vendor/jquery/jquery.min.js"></script>
+            <script src="/vendor/bootstrap/js2/bootstrap.bundle.min.js"></script>
+
+            <!-- Menu Toggle Script -->
+            <script>
+            $("#menu-toggle").click(function(e) {
+              e.preventDefault();
+              $("#wrapper").toggleClass("toggled");
+            });
+            </script>
+
+    </body>
 
 </html>
