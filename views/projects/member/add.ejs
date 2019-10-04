@@ -54,80 +54,78 @@
               <li class="nav-item">
                 <a class="nav-link" href="/users">Users</a>
               </li>
-            <% } %>
-            <li class="nav-item">
-              <a href="/signout"><button class="btn btn-primary">Sign Out</button></a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+              <% } %>
+              <li class="nav-item">
+                <a href="/signout"><button class="btn btn-primary">Sign Out</button></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
 
-      <div class="container-fluid">
-        <!-- CONTENTS START HERE -->
-        <h1 style="text-align:left;">Add Member</h1>
-        <form method="post" action="/projects/member/<%= idProject %>/add/">
-          <table>
-            <tr>
-              <td width="200" style="align:left;">
-                <label for="name">Name</label>
-              </td>
-              <td width="800">
+        <div class="container-fluid">
+          <!-- CONTENTS START HERE -->
+          <h1 style="text-align:left;">Add Member</h1>
+          <form method="post" action="/projects/member/<%= idProject %>/add/">
+
+            <div class="form-group row">
+              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
                 <select id="name" name="name" class="form-control">
                   <% for (let i=0;i<usersData.length;i++) { %>
                     <option value="<%= usersData[i].userid %>"><%= usersData[i].fullname %></option>
-                  <% } %>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="position">Position</label>
-              </td>
-              <td width="800">
-                <select id="position" name="position"  class="form-control">
-                  <option value="" disabled>Choose the Position..</option>
-                  <option value="qa">Quality Assurance Engineer</option>
-                  <option value="manager">Manager</option>
-                  <option value="developer">Software Engineer</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <label for="isfulltime">Is Full Time ?</label>
-              </td>
-              <td width="800">
-                <input type="checkbox" name="isfulltime" id="isfulltime">
-              </td>
-            </tr>
-            <tr>
-              <td width="200">
-                <button type="submit" class="btn btn-primary">Save</button>&nbsp;
-                <a href="/projects/member/<%= idProject %>" class="btn btn-warning">Cancel</a>
-              </td>
-            </tr>
-          </table>
-        </form>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="position" class="col-sm-2 col-form-label">Position</label>
+                <div class="col-sm-10">
+                  <select id="position" name="position"  class="form-control">
+                    <option value="" disabled>Choose the Position..</option>
+                    <option value="qa">Quality Assurance Engineer</option>
+                    <option value="manager">Manager</option>
+                    <option value="developer">Software Engineer</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="isfulltime" class="col-sm-2">Is Full Time ?</label>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="isfulltime" id="isfulltime">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <button type="submit" class="btn btn-primary">Save</button>&nbsp;
+                  <a href="/projects/member/<%= idProject %>" class="btn btn-warning">Cancel</a>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <!-- /#page-content-wrapper -->
 
       </div>
-    </div>
-    <!-- /#page-content-wrapper -->
+      <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
+      <!-- Bootstrap core JavaScript -->
+      <script src="/vendor/jquery/jquery.min.js"></script>
+      <script src="/vendor/bootstrap/js2/bootstrap.bundle.min.js"></script>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js2/bootstrap.bundle.min.js"></script>
+      <!-- Menu Toggle Script -->
+      <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+      </script>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+    </body>
 
-</body>
-
-</html>
+    </html>
