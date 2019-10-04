@@ -49,146 +49,143 @@
             <li><a href="/profile">Profile</a></li>
             <% if (isAdmin) { %>
               <li><a href="/users">Users</a><li>
-            <% } %>
-            <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
-          </ul>
-        </div>
+                <% } %>
+                <li><a class="btn btn-link-3" href="/signout">Sign Out</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Javascript -->
+        <script src="/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery.backstretch.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/retina-1.1.0.min.js"></script>
+        <script src="/assets/js/scripts.js"></script>
       </div>
-    </nav>
 
-    <!-- Javascript -->
-    <script src="/assets/js/jquery-1.11.1.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery.backstretch.min.js"></script>
-    <script src="/assets/js/wow.min.js"></script>
-    <script src="/assets/js/retina-1.1.0.min.js"></script>
-    <script src="/assets/js/scripts.js"></script>
-  </div>
+      <div class="container">
+        <h1 style="text-align:left;">Projects</h1>
+        <h3 style="text-align:left;">Filters</h3>
+        <form method="get" action="/projects">
+          <input type="hidden" value="1" name="page">
 
-  <div class="container">
-    <h1 style="text-align:left;">Projects</h1>
-    <h3 style="text-align:left;">Filters</h3>
-    <form method="get" action="/projects">
-      <input type="hidden" value="1" name="page">
-      <table>
-        <tr>
-          <td width="200" style="align:left;">
-            <label for="id"><input type="checkbox" name="id_checkbox">id</label>
-          </td>
-          <td width="800">
-            <input type="text" id="id" name="id" placeholder="ID" class="form-control">
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <label for="Name"><input type="checkbox" name="name_checkbox">Name</label>
-          </td>
-          <td width="800">
-            <input type="text" id="Name" name="name" placeholder="Name" class="form-control">
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <label for="member"><input type="checkbox" name="member_checkbox">Member</label>
-          </td>
-          <td width="800">
-            <select id="member" name="member" class="form-control">
-              <option value="" disabled selected>Choose a member..</option>
-              <% for (let i=0;i<users.length;i++) { %>
-                <option value="<%= users[i].userid %>"><%= users[i].firstname + ' ' + users[i].lastname %></option>
-              <% } %>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td width="200">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <h3 style="text-align:left;">Options</h3>
-    <form method="post" action="/projects/option">
-      <table>
-        <tr>
-          <td width="100">Columns</td>
-          <td width="500">
-            <input type="checkbox" name="id_column" <%= options.id_column ? ' checked' : ''; %>>ID
-          </td>
-        </tr>
-        <tr>
-          <td width="100"></td>
-          <td width="500">
-            <input type="checkbox" name="name_column" <%= options.name_column ? ' checked' : ''; %>>Name
-          </td>
-        </tr>
-        <tr>
-          <td width="100"></td>
-          <td width="500">
-            <input type="checkbox" name="members_column" <%= options.members_column ? ' checked' : ''; %>>Member
-          </td>
-        </tr>
-        <tr>
-          <td width="100">
-            <button type="submit" class="btn btn-primary">Apply</button>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <% if (options.id_column) { %>
-            <th style="width:10%;">ID</th>
-          <% } %>
-          <% if (options.name_column) { %>
-            <th style="width:30%;">Name</th>
-          <% } %>
-          <% if (options.members_column) { %>
-            <th style="width:30%;">Member</th>
-          <% } %>
-          <th style="width:30%;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (let i=0;i<arrayProjects.length;i++) { %>
-        <tr>
-          <% if (options.id_column) { %>
-            <td style="text-align:left;"><a href="/projects/overview/<%= arrayProjects[i].id %>"><%= arrayProjects[i].id %></a></td>
-          <% } %>
-          <% if (options.name_column) { %>
-            <td style="text-align:left;"><%= arrayProjects[i].name %></td>
-          <% } %>
-          <% if (options.members_column) { %>
-            <td style="text-align:left;">
-              <% for (let j=0;j<arrayProjects[i].members.length;j++) { %>
-                <%= arrayProjects[i].members[j]; %><%= (j < arrayProjects[i].members.length-1) ? ', ' : ''; %>
-              <% } %>
-            </td>
-          <% } %>
-          <td style="text-align:left;">
-            <a href="/projects/edit/<%= arrayProjects[i].id %>"><button class="btn btn-success">Edit</button></a>
-            <% if (isAdmin) { %>
-              <a href="/projects/delete/<%= arrayProjects[i].id %>"><button class="btn btn-danger">Delete</button></a>
-            <% } %>
-          </td>
-        </tr>
-        <% } %>
-        <% if (isAdmin) { %>
-          <tr>
-            <td align="left"><a href="projects/add"><button class="btn btn-primary">Add</button></a></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
-      <% for (let i=1;i<=totalPage;i++) { %>
-        <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
-        <% } %>
-        <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
-      </ul>
-  </div>
-</body>
+          <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label"><input type="checkbox" name="id_checkbox">id</label>
+            <div class="col-sm-10">
+              <input type="text" id="id" name="id" placeholder="ID" class="form-control">
+            </div>
+          </div>
 
-</html>
+          <div class="form-group row">
+            <label for="Name" class="col-sm-2 col-form-label"><input type="checkbox" name="name_checkbox">Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="Name" name="name" placeholder="Name" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="member" class="col-sm-2 col-form-label"><input type="checkbox" name="member_checkbox">Member</label>
+            <div class="col-sm-10">
+              <select id="member" name="member" class="form-control">
+                <option value="" disabled selected>Choose a member..</option>
+                <% for (let i=0;i<users.length;i++) { %>
+                  <option value="<%= users[i].userid %>"><%= users[i].firstname + ' ' + users[i].lastname %></option>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </div>
+
+          </form>
+          <h3 style="text-align:left;">Options</h3>
+          <form method="post" action="/projects/option">
+            <table>
+              <tr>
+                <td width="100">Columns</td>
+                <td width="500">
+                  <input type="checkbox" name="id_column" <%= options.id_column ? ' checked' : ''; %>>ID
+                </td>
+              </tr>
+              <tr>
+                <td width="100"></td>
+                <td width="500">
+                  <input type="checkbox" name="name_column" <%= options.name_column ? ' checked' : ''; %>>Name
+                </td>
+              </tr>
+              <tr>
+                <td width="100"></td>
+                <td width="500">
+                  <input type="checkbox" name="members_column" <%= options.members_column ? ' checked' : ''; %>>Member
+                </td>
+              </tr>
+              <tr>
+                <td width="100">
+                  <button type="submit" class="btn btn-primary">Apply</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <% if (options.id_column) { %>
+                  <th style="width:10%;">ID</th>
+                  <% } %>
+                  <% if (options.name_column) { %>
+                    <th style="width:30%;">Name</th>
+                    <% } %>
+                    <% if (options.members_column) { %>
+                      <th style="width:30%;">Member</th>
+                      <% } %>
+                      <th style="width:30%;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for (let i=0;i<arrayProjects.length;i++) { %>
+                      <tr>
+                        <% if (options.id_column) { %>
+                          <td style="text-align:left;"><a href="/projects/overview/<%= arrayProjects[i].id %>"><%= arrayProjects[i].id %></a></td>
+                          <% } %>
+                          <% if (options.name_column) { %>
+                            <td style="text-align:left;"><%= arrayProjects[i].name %></td>
+                            <% } %>
+                            <% if (options.members_column) { %>
+                              <td style="text-align:left;">
+                                <% for (let j=0;j<arrayProjects[i].members.length;j++) { %>
+                                  <%= arrayProjects[i].members[j]; %><%= (j < arrayProjects[i].members.length-1) ? ', ' : ''; %>
+                                  <% } %>
+                                </td>
+                                <% } %>
+                                <td style="text-align:left;">
+                                  <a href="/projects/edit/<%= arrayProjects[i].id %>"><button class="btn btn-success">Edit</button></a>
+                                  <% if (isAdmin) { %>
+                                    <a href="/projects/delete/<%= arrayProjects[i].id %>"><button class="btn btn-danger">Delete</button></a>
+                                    <% } %>
+                                  </td>
+                                </tr>
+                                <% } %>
+                                <% if (isAdmin) { %>
+                                  <tr>
+                                    <td align="left"><a href="projects/add"><button class="btn btn-primary">Add</button></a></td>
+                                  </tr>
+                                  <% } %>
+                                </tbody>
+                              </table>
+                              <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="<%= (page-1)>0 ? url.replace(`page=${page}`,`page=${page-1}`) : url.replace(`page=${page}`,`page=1`) %>">Previous</a></li>
+                                <% for (let i=1;i<=totalPage;i++) { %>
+                                  <li class="page-item <%= (page == i) ? ' active' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${i}`); %>"><%= i %></a></li>
+                                  <% } %>
+                                  <li class="page-item <%= (page == totalPage) ? ' disabled' : '' ; %>"><a class="page-link" href="<%= url.replace(`page=${page}`,`page=${parseInt(page)+1}`) ; %>">Next</a></li>
+                                </ul>
+                              </div>
+                            </body>
+
+                            </html>
